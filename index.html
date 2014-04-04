@@ -270,6 +270,46 @@ App.Router.map(function() {
                     <p>Can define routes and resources.  Resources can have have other routes and resources nested under them while routes cannot.  Resources automatically generate index, loading and error routes.  Routes are terminal.</p>
                 </section>
 
+                <section>
+                    <h3>Ember.Route</h3>
+                    <p>Route objects give you control over what happens within a specific route of your application.  It has hooks that allows you to customize the following:</p>
+                    <ul>
+                        <li>Loading the model for that route</li>
+                        <li>Setting up the state of the controller</li>
+                        <li>Customize what is rendered</li>
+                        <li>Custom logic when entering/existing the route</li>
+                        <li>Handle actions that bubble up</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ember.Route</h3>
+                    <pre>
+                        <code>
+App.PostsRoute = Ember.Route.extend({
+    // Load the model, if a promise it will not continue until it resolves
+    model: function() {
+        return this.store.find('post');
+    },
+    // Customize the state of the controller
+    setupController: function(controller, model) {
+        controller.set('model', model);
+        controller.set('isEditing', false);
+    },
+    // Customize what is rendered
+    renderTemplate: function(controller) {
+        this.render('post-list', { controller: controller });
+    }
+});
+                        </code>
+                    </pre>
+                </section>
+
+
+
+
+
+
 				<section>
 					<h1>Reveal.js</h1>
 					<h3>HTML Presentations Made Easy</h3>
