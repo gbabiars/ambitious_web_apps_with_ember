@@ -240,6 +240,36 @@ myPerson.set('firstName', 'Jane'); // A name has changed will be logged
                     </ul>
                 </section>
 
+                <section>
+                    <h3>Ember.Application</h3>
+                    <p>Instantiate a single instance for your application.  Can optionally pass in an element id to use as the root of your application.  Creates the namespace for your application.</p>
+                    <pre>
+                        <code>
+var App = Ember.Application.create();
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h3>Ember.Router</h3>
+                    <p>Used to define the route structure of your application.  This is done using Router.map.</p>
+                    <pre>
+                        <code>
+App.Router.map(function() {
+    this.resource('posts', function() {
+        this.route('post', { path: ':post_id' }); // Maps to /posts/1
+    });
+    this.resource('about', { path: 'my-about-page' });
+});
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h3>Ember.Router</h3>
+                    <p>Can define routes and resources.  Resources can have have other routes and resources nested under them while routes cannot.  Resources automatically generate index, loading and error routes.  Routes are terminal.</p>
+                </section>
+
 				<section>
 					<h1>Reveal.js</h1>
 					<h3>HTML Presentations Made Easy</h3>
