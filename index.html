@@ -96,10 +96,127 @@
                     </aside>
                 </section>
 
-
+                <section>
+                    <h3>Core Concepts</h3>
+                    <ul>
+                        <li>Observers/Computed Properties</li>
+                        <li>Auto updating templates</li>
+                        <li>Run Loop</li>
+                    </ul>
+                </section>
 
                 <section>
+                    <h3>Ember.Object</h3>
+                    <p>
+                        All "classes" in Ember inherit from Ember.Object.  This is the building block for just about everything in Ember and provides:<br>
+                    </p>
+                    <br>
+                    <ul>
+                        <li>The ability to create observers and computed properties</li>
+                        <li>.get and .set which allow us access and trigger properties through bindings.</li>
+                    </ul>
+                </section>
 
+                <section>
+                    <h3>Ember.Object instantiation</h3>
+                    <pre>
+                        <code>
+var myObject = Ember.Object.create({
+    firstName: 'Greg',
+    lastName: 'Babiars'
+});
+myObject.set('firstName', 'Gregory');
+myObject.get('firstName'); // Gregory
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h3>Extending an object</h3>
+                    <pre>
+                        <code>
+var Person = Ember.Object.extend({
+    firstName: '',
+    lastName: '',
+    sayName: function() {
+        console.log(this.get('firstName') + ' ' + this.get('lastName');
+    }
+});
+var myPerson = Person.create({ firstName: 'John', lastName: 'Doe' });
+myPerson.sayName(); // John Doe
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h3>Computed Properties</h3>
+                    <ul>
+                        <li>Methods that can be accessed as properties</li>
+                        <li>Allows us to propagate changes through our application</li>
+                        <li>We can specify our dependent properties that trigger an update</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Computed Properties</h3>
+                    <pre>
+                        <code>
+var Person = Ember.Object.extend({
+    firstName: '',
+    lastName: '',
+    name: function() {
+        return this.get('firstName') + ' ' + this.get('lastName');
+    }.property('firstName', 'lastName')
+});
+var myPerson = Person.create({ firstName: 'John', lastName: 'Doe' });
+myPerson.get('name'); // John Doe
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h3>Observers</h3>
+                    <ul>
+                        <li>Methods that are called when a dependent key has changed</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Observers</h3>
+                    <pre>
+                        <code>
+var Person = Ember.Object.extend({
+    firstName: '',
+    lastName: '',
+    nameChanged: function() {
+        console.log('A name has changed');
+    }.observer('firstName', 'lastName')
+});
+var myPerson = Person.create({ firstName: 'John', lastName: 'Doe' });
+myPerson.set('firstName', 'Jane'); // A name has changed will be logged
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h3>Run Loop</h3>
+                    <ul>
+                        <li>A set of queues that batch and order work</li>
+                        <li>Intelligently executes your application to maximize efficiency and effectiveness</li>
+                        <li>Have access to schedule using Ember.run</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Architecture</h3>
+                    <ul>
+                        <li>Application</li>
+                        <li>Router</li>
+                        <li>Routes</li>
+                        <li>Controllers</li>
+                        <li>Views</li>
+                        <li>Components</li>
+                    </ul>
                 </section>
 
 				<section>
