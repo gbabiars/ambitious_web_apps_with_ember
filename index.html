@@ -204,7 +204,7 @@ myPerson.set('firstName', 'Jane'); // A name has changed will be logged
                         <li>Triggered in templates using {{action}} or JS using .send()</li>
                         <li>Can be handled in views, controllers or routes</li>
                         <li>Handlers must be defined in the actions hash</li>
-                        <li>Starts in controller, bubbles up through parent controllers until handler is found</li>
+                        <li>Starts in controller, bubbles up through parent routes until handler is found</li>
                     </ul>
                 </section>
 
@@ -235,6 +235,7 @@ myPerson.set('firstName', 'Jane'); // A name has changed will be logged
                         <li>Controllers</li>
                         <li>Views</li>
                         <li>Components</li>
+                        <li>Templates</li>
                     </ul>
                 </section>
 
@@ -357,8 +358,8 @@ App.PostController = Ember.ObjectController.extend({
                     <pre><code>
 App.PostsController = Ember.ArrayController.extend({
     hasReadAllPosts: function() {
-        var readPosts = this.get('model').filterBy('isRead', false);
-        return readPosts.get('length') === 0;
+        var unreadreadPosts = this.get('model').filterBy('isRead', false);
+        return unreadPosts.get('length') === 0;
     }.property('posts.@each.isRead'),
 
     actions: {
@@ -415,14 +416,16 @@ App.PostView = Ember.View.extend({
                     <pre><code>
 App.ButtonComponent = Ember.Component.extend({
     tagName: 'button',
-    classNames: 'btn',
+    classNames: ['btn'],
     click: function() {
         this.sendAction();
     }
 });
 App.DemoController = Ember.Controller.extend({
     buttonText: 'Click Me',
-    doSomething: function() { console.log('button triggered this'); }
+    actions: {
+        doSomething: function() { console.log('button triggered this'); }
+    }
 });
                     </code></pre>
                     <pre><code>
