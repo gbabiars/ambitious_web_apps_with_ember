@@ -81,9 +81,9 @@
                     <ul>
                         <li>Increases productivity and reduces boilerplate</li>
                         <li>Conventions guide you down the right path</li>
+                        <li>As your app grows the complexity stays constant</li>
                         <li>Leverages work of community to solve common problems</li>
                         <li>Embraces the URL</li>
-                        <li>The browser is your app platform</li>
                     </ul>
 
                     <aside class="notes">
@@ -199,7 +199,7 @@ myPerson.set('firstName', 'Jane'); // A name has changed will be logged
                 </section>
 
                 <section>
-                    <h3>Auto Updating Templats</h3>
+                    <h3>Auto Updating Templates</h3>
                     <ul>
                         <li>Handlebars</li>
                         <li>Uses metamorph tags to keep track of changes and update</li>
@@ -267,7 +267,19 @@ App.Router.map(function() {
 
                 <section>
                     <h3>Ember.Router</h3>
-                    <p>Can define routes and resources.  Resources can have have other routes and resources nested under them while routes cannot.  Resources automatically generate index, loading and error routes.  Routes are terminal.</p>
+                    <p>Can define routes and resources.  Resources can have have other routes and resources nested under them while routes cannot.  Resources automatically defines index, loading and error routes.  Routes are terminal.</p>
+                </section>
+
+                <section>
+                    <h3>Ember.Router</h3>
+                    <p>Resources will generate a route, controller and template at run time if one matching the naming convention is not found.</p>
+                    <p>
+                        For example, our posts resource will generate:
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </p>
+
                 </section>
 
                 <section>
@@ -279,6 +291,7 @@ App.Router.map(function() {
                         <li>Customize what is rendered</li>
                         <li>Custom logic when entering/existing the route</li>
                         <li>Handle actions that bubble up</li>
+                        <li>Allows us to transition to other routes</li>
                     </ul>
                 </section>
 
@@ -303,6 +316,59 @@ App.PostsRoute = Ember.Route.extend({
 });
                         </code>
                     </pre>
+                </section>
+
+                <section>
+                    <h3>Ember.Controller</h3>
+                    <p>
+                        Controllers are designed to manage application state.  They have several properties:
+                        <ul>
+                            <li>One is generated for each route</li>
+                            <li>Can depend on other controllers</li>
+                            <li>Holds transient state and logic for a specific template</li>
+                            <li>Typically has a model that represents an object or array</li>
+                            <li>Handles actions triggered from the template</li>
+                        </ul>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Ember.ObjectController</h3>
+                    <p>Example of an object controller</p>
+                    <pre>
+                        <code>
+App.PostController = Ember.ObjectController.extend({
+    hasComments: function() {
+        return this.get('model.comments.length') > 0;
+    }.property('model.comments.length')
+
+    actions: {
+        cancel: function() {
+            this.get('model').rollback();
+        }
+    }
+});
+                        </code>
+                    </pre>
+                </section>
+
+                <section>
+                    <h3>Ember.ArrayController</h3>
+                    <p>Example of an array controller</p>
+                    <pre><code>
+App.PostsController = Ember.ArrayController.extend({
+    hasReadAllPosts: function() {
+        var readPosts = this.get('model').filterBy('isRead', false);
+        return readPosts.get('length') === 0;
+    }.property('posts.@each.isRead'),
+
+    actions: {
+        readPost: function(post) {
+            post.set('isRead', true');
+        }
+    }
+});
+                    </code></pre>
                 </section>
 
 
