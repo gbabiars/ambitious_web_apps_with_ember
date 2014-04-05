@@ -371,8 +371,134 @@ App.PostsController = Ember.ArrayController.extend({
                     </code></pre>
                 </section>
 
+                <section>
+                    <h3>Ember.View</h3>
+                    <ul>
+                        <li>Able to specify the tagName, css classes</li>
+                        <li>Handles DOM events (click, key press, etc)</li>
+                        <li>Can have conditional html attributes (class, disabled, etc)</li>
+                        <li>Has a backing controller</li>
+                        <li>Not commonly used</li>
+                    </ul>
+                </section>
 
+                <section>
+                    <h3>Ember.View</h3>
+                    <pre><code>
+App.PostView = Ember.View.extend({
+    tagName: 'article',
+    classNameBindings: ['selected:active'],
+    selected: false,
+    templateName: 'post-detail',
+    click: function() {
+        this.get('controller').doSomething();
+    }
+});
+                    </code></pre>
+                    <pre><code>
+{{view App.PostView postBinding="post" selected="false"}}
+                    </code></pre>
+                </section>
 
+                <section>
+                    <h3>Ember.Component</h3>
+                    <ul>
+                        <li>Subclass of Ember.View, designed for reuse</li>
+                        <li>Sandboxed, backing controller and context is itself</li>
+                        <li>All properties must be passed in via template</li>
+                        <li>Must explicitly bind external actions to actions inside the component</li>
+                        <li>Best place to wrap 3rd party plugins, i.e. jQuery plugins</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Ember.Component</h3>
+                    <pre><code>
+App.ButtonComponent = Ember.Component.extend({
+    tagName: 'button',
+    classNames: 'btn',
+    click: function() {
+        this.sendAction();
+    }
+});
+App.DemoController = Ember.Controller.extend({
+    buttonText: 'Click Me',
+    doSomething: function() { console.log('button triggered this'); }
+});
+                    </code></pre>
+                    <pre><code>
+{{button text=buttonText action="doSomething"}}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Ember.Component</h3>
+                    <p>Modal example</p>
+                    <pre><code>
+App.ModalComponent = Ember.Component.extend({
+    classNames: ['modal', 'fade'],
+    isOpen: false,
+    didInsertElement: function() {
+        this.$().modal({
+            show: false
+        });
+    },
+    actions: {
+        submit: function() { this.sendAction(); }
+    },
+    toggleVisible: function()
+    {
+        this.$().modal(this.get("isOpen") ? "show" : "hide");
+    }.observes("isOpen")
+});
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Ember.Component</h3>
+                    <p>Modal example (cont.)</p>
+                    <p>Modal component template</p>
+                    <pre><code>
+<div class="modal-content">
+    {{yield}}
+</div>
+<div class="modal-footer">
+    <button {{action "submit"}}>Submit</button>
+</div>
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Ember.Component</h3>
+                    <p>Modal example (cont.)</p>
+                    <p>Person controller</p>
+                    <pre><code>
+App.PersonController = Ember.Controller.extend({
+    formOpen: false,
+    actions: {
+        toggleForm: function() {
+            this.toggleProperty('formOpen');
+        },
+        save: function() {
+            this.get('model').save();
+        }
+    }
+});
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>Ember.Component</h3>
+                    <p>Modal example (cont.)</p>
+                    <p>Person template</p>
+                    <pre><code>
+<button {{action "toggleForm"}}>Toggle Form</button>
+{{#modal action="save" isOpen=formOpen}}
+    <label>Name:</label>
+    {{input value=model.name}}
+{{/modal}}
+                    </code></pre>
+                </section>
 
 
 
