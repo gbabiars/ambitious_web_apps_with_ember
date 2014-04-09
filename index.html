@@ -43,21 +43,28 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 
-                <section>
-                    <h2>Building Ambitious Web Apps with Ember.js</h2>
-                    <p>
-                        <small>Desert Code Camp 2014</small>
-                    </p>
-                    <p>
-                        <img src="/tomster.png" alt="tomster"/>
-                    </p>
-                </section>
+                <section data-markdown data-separator="---">
+                    <script type="text/template">
+                        ## Building Ambitious Web Apps with Ember.js
 
-                <section>
-                    <h2>Greg Babiars</h2>
-                    <p>Developer at Swiftpage</p>
-                    <p>http://gregbabiars.com</p>
-                    <p>@gbabiars</p>
+                        Desert Code Camp 2014
+
+                        ![tomster](/tomster.png)
+
+                        ---
+
+                        ## Greg Babiars
+
+                        Developer at Swiftpage
+
+                        http://gregbabiars.com
+
+                        @gbabiars
+
+                        https://github.com/gbabiars
+
+                    </script>
+
                 </section>
 
                 <section>
@@ -94,6 +101,15 @@
                         <div>Build stateful applications using URLs to map to state</div>
                         <div>No more truth in DOM, bindings propagate through the system</div>
                     </aside>
+                </section>
+
+                <section>
+                    <h3>Myths about Ember</h3>
+                    <ul>
+                        <li>Documentation sucks</li>
+                        <li>Hard to test</li>
+                        <li>Not flexible</li>
+                    </ul>
                 </section>
 
                 <section>
@@ -382,99 +398,111 @@ App.PostsController = Ember.ArrayController.extend({
                     </ul>
                 </section>
 
-                <section>
-                    <h3>Ember.View</h3>
-                    <pre><code>
-App.PostView = Ember.View.extend({
-    tagName: 'article',
-    classNameBindings: ['selected:active'],
-    selected: false,
-    templateName: 'post-detail',
-    click: function() {
-        this.get('controller').doSomething();
-    }
-});
-                    </code></pre>
-                    <pre><code>
-{{view App.PostView postBinding="post" selected="false"}}
-                    </code></pre>
-                </section>
+                <section data-markdown data-separator="---">
+                    <script type="text/template">
+                        ### Ember.View
 
-                <section>
-                    <h3>Ember.Component</h3>
-                    <ul>
-                        <li>Subclass of Ember.View, designed for reuse</li>
-                        <li>Sandboxed, backing controller and context is itself</li>
-                        <li>All properties must be passed in via template</li>
-                        <li>Must explicitly bind external actions to actions inside the component</li>
-                        <li>Best place to wrap 3rd party plugins, i.e. jQuery plugins</li>
-                    </ul>
-                </section>
+                        ```js
+                        App.PostView = Ember.View.extend({
+                            tagName: 'article',
+                            classNameBindings: ['selected:active'],
+                            selected: false,
+                            templateName: 'post-detail',
+                            click: function() {
+                                this.get('controller').doSomething();
+                            }
+                        });
+                        ```
 
-                <section>
-                    <h3>Ember.Component</h3>
-                    <pre><code>
-App.ButtonComponent = Ember.Component.extend({
-    tagName: 'button',
-    classNames: ['btn'],
-    click: function() {
-        this.sendAction();
-    }
-});
-App.DemoController = Ember.Controller.extend({
-    buttonText: 'Click Me',
-    actions: {
-        doSomething: function() { console.log('button triggered this'); }
-    }
-});
-                    </code></pre>
-                    <pre><code>
-{{button text=buttonText action="doSomething"}}
-                    </code></pre>
-                </section>
+                        ```html
+                        {{view App.PostView postBinding="post" selected="false"}}
+                        ```
 
-                <section>
-                    <h3>Ember.Component</h3>
-                    <p>Modal example</p>
-                    <pre><code>
-App.ModalComponent = Ember.Component.extend({
-    classNames: ['modal', 'fade'],
-    isOpen: false,
-    didInsertElement: function() {
-        this.$().modal({
-            show: false
-        });
-    },
-    actions: {
-        submit: function() { this.sendAction(); }
-    },
-    toggleVisible: function()
-    {
-        this.$().modal(this.get("isOpen") ? "show" : "hide");
-    }.observes("isOpen")
-});
-                    </code></pre>
-                </section>
+                        ---
 
-                <section>
-                    <h3>Ember.Component</h3>
-                    <p>Modal example (cont.)</p>
-                    <p>Modal component template</p>
-                    <pre><code>
+                        ### Ember.Component
+
+                        - Subclass of Ember.View, designed for reuse
+                        - Sandboxed, backing controller and context is itself
+                        - All properties must be passed in via template
+                        - Must explicitly bind external actions to actions inside the component
+                        - Best place to wrap 3rd party plugins, i.e. jQuery plugins
+
+                        ---
+
+                        ### Ember.Component
+
+                        ```js
+                        App.ButtonComponent = Ember.Component.extend({
+                            tagName: 'button',
+                            classNames: ['btn'],
+                            click: function() {
+                                this.sendAction();
+                            }
+                        });
+                        App.DemoController = Ember.Controller.extend({
+                            buttonText: 'Click Me',
+                            actions: {
+                                doSomething: function() { console.log('button triggered this'); }
+                            }
+                        });
+                        ```
+
+                        ```html
+                        {{button text=buttonText action="doSomething"}}
+                        ```
+
+                        ---
+
+                        ### Ember.Component
+
+                        Modal example
+
+                        ```js
+                        App.ModalComponent = Ember.Component.extend({
+                            classNames: ['modal', 'fade'],
+                            isOpen: false,
+                            didInsertElement: function() {
+                                this.$().modal({
+                                    show: false
+                                });
+                            },
+                            actions: {
+                                submit: function() { this.sendAction(); }
+                            },
+                            toggleVisible: function()
+                            {
+                                this.$().modal(this.get("isOpen") ? "show" : "hide");
+                            }.observes("isOpen")
+                        });
+                        ```
+
+                        ---
+
+                        ### Ember.Component
+
+                        Modal example (cont.)
+
+                        Modal component template
+
+                        ```html
 <div class="modal-content">
     {{yield}}
 </div>
 <div class="modal-footer">
     <button {{action "submit"}}>Submit</button>
 </div>
-                    </code></pre>
-                </section>
+                        ```
 
-                <section>
-                    <h3>Ember.Component</h3>
-                    <p>Modal example (cont.)</p>
-                    <p>Person controller</p>
-                    <pre><code>
+                        ---
+
+                        ### Ember.Component
+
+                        Modal example (cont.)
+
+                        Person controller
+
+                        ```js
 App.PersonController = Ember.Controller.extend({
     formOpen: false,
     actions: {
@@ -486,65 +514,87 @@ App.PersonController = Ember.Controller.extend({
         }
     }
 });
-                    </code></pre>
+                        ```
+
+                        ---
+
+                        ### Ember.Component
+
+                        Modal example (cont.)
+
+                        Person Template
+
+                        ```html
+                        <button {{action "toggleForm"}}>Toggle Form</button>
+                        {{#modal action="save" isOpen=formOpen}}
+                            <label>Name:</label>
+                            {{input value=model.name}}
+                        {{/modal}}
+                        ```
+
+                        ---
+
+                        ### Templates
+
+                        - Always have a backing context, typically a controller
+                        - Handlebars - Logicless templates, logic lives in JS
+                        - Automatically update properties
+                        - Can trigger actions
+
+                        ---
+
+                        ### Templates
+
+                        Simple syntax example
+
+                        ```html
+                        <div>
+                            <h1>{{person.name}}</h1>
+                            ##{{person.company}}</h2>
+                        </div>
+                        ```
+
+                        ---
+
+                        ### Templates
+
+                        Using each and link-to
+
+                        ```html
+                        <ul>
+                            {{#each post in model}}
+                            <li>
+                                {{link-to post.name "post" post}}
+                            </li>
+                            {{/each}}
+                        </ul>
+                        ```
+
+                        ---
+
+                        ### Templates
+
+                        Triggering an action
+
+                        ```html
+                        <button {{action "save" model}}></button>
+                        ```
+                    </script>
                 </section>
 
                 <section>
-                    <h3>Ember.Component</h3>
-                    <p>Modal example (cont.)</p>
-                    <p>Person template</p>
-                    <pre><code>
-<button {{action "toggleForm"}}>Toggle Form</button>
-{{#modal action="save" isOpen=formOpen}}
-    <label>Name:</label>
-    {{input value=model.name}}
-{{/modal}}
-                    </code></pre>
+                    <h2>What about persistence?</h2>
+                    <p>Well that's a whole different talk!</p>
                 </section>
 
                 <section>
-                    <h3>Templates</h3>
+                    <h3>Persistence Libraries</h3>
                     <ul>
-                        <li>Always have a backing context, typically a controller</li>
-                        <li>Handlebars - Logicless templates, logic lives in JS</li>
-                        <li>Automatically update properties</li>
-                        <li>Can trigger actions</li>
+                        <li>Ember Data</li>
+                        <li>Ember Model</li>
+                        <li>Ember Persistence Foundation (EPF)</li>
+                        <li>ic-ajax</li>
                     </ul>
-                </section>
-
-                <section>
-                    <h3>Templates</h3>
-                    <p>Simple syntax example</p>
-                    <pre>
-                        <code>
-<div>
-    <h1>{{person.name}}</h1>
-    <h2>{{person.company}}</h2>
-</div>
-                        </code>
-                    </pre>
-                </section>
-
-                <section>
-                    <h3>Templates</h3>
-                    <p>Using each and link-to</p>
-                    <pre><code>
-<ul>
-    {{#each post in model}}
-        <li>
-            {{link-to post.name "post" post}}
-        </li>
-    {{/each}}
-</ul>
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h3>Templates</h3>
-                    <p>Triggering an action</p>
-                    <pre><code>
-<button {{action "save" model}}></button>
-                    </code></pre>
                 </section>
 
                 <section>
