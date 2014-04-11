@@ -133,35 +133,37 @@
                     </ul>
                 </section>
 
-                <section>
-                    <h3>Ember.Object instantiation</h3>
-                    <pre>
-                        <code>
-var myObject = Ember.Object.create({
-    firstName: 'Greg',
-    lastName: 'Babiars'
-});
-myObject.set('firstName', 'Gregory');
-myObject.get('firstName'); // Gregory
-                        </code>
-                    </pre>
+                <section data-markdown>
+                    <script type="text/template">
+                        ### Ember.Object instantiation
+
+                        ```js
+                        var myObject = Ember.Object.create({
+                            firstName: 'Greg',
+                            lastName: 'Babiars'
+                        });
+                        myObject.set('firstName', 'Gregory');
+                        myObject.get('firstName'); // Gregory
+                        ```
+                    </script>
                 </section>
 
-                <section>
-                    <h3>Extending an object</h3>
-                    <pre>
-                        <code>
-var Person = Ember.Object.extend({
-    firstName: '',
-    lastName: '',
-    sayName: function() {
-        console.log(this.get('firstName') + ' ' + this.get('lastName');
-    }
-});
-var myPerson = Person.create({ firstName: 'John', lastName: 'Doe' });
-myPerson.sayName(); // John Doe
-                        </code>
-                    </pre>
+                <section data-markdown>
+                    <script type="text/template">
+                        ### Extending an object
+
+                        ```js
+                        var Person = Ember.Object.extend({
+                            firstName: '',
+                            lastName: '',
+                            sayName: function() {
+                                console.log(this.get('firstName') + ' ' + this.get('lastName');
+                            }
+                        });
+                        var myPerson = Person.create({ firstName: 'John', lastName: 'Doe' });
+                        myPerson.sayName(); // John Doe
+                        ```
+                    </script>
                 </section>
 
                 <section>
@@ -486,12 +488,12 @@ App.PostsController = Ember.ArrayController.extend({
                         Modal component template
 
                         ```html
-<div class="modal-content">
-    {{yield}}
-</div>
-<div class="modal-footer">
-    <button {{action "submit"}}>Submit</button>
-</div>
+                        <div class="modal-content">
+                            {{yield}}
+                        </div>
+                        <div class="modal-footer">
+                            <button {{action "submit"}}>Submit</button>
+                        </div>
                         ```
 
                         ---
@@ -503,17 +505,17 @@ App.PostsController = Ember.ArrayController.extend({
                         Person controller
 
                         ```js
-App.PersonController = Ember.Controller.extend({
-    formOpen: false,
-    actions: {
-        toggleForm: function() {
-            this.toggleProperty('formOpen');
-        },
-        save: function() {
-            this.get('model').save();
-        }
-    }
-});
+                        App.PersonController = Ember.Controller.extend({
+                            formOpen: false,
+                            actions: {
+                                toggleForm: function() {
+                                    this.toggleProperty('formOpen');
+                                },
+                                save: function() {
+                                    this.get('model').save();
+                                }
+                            }
+                        });
                         ```
 
                         ---
